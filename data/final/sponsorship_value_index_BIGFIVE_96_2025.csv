@@ -1,0 +1,97 @@
+﻿club_name,league,country,predicted_sponsorship_eur_m,SVI_2025,svi_rank
+Real Madrid,La Liga,Spain,187.75,100.0,1
+Barcelona,La Liga,Spain,173.54,91.92,2
+Bayern Munich,Bundesliga,Germany,171.46,90.74,3
+PSG,Ligue 1,France,165.55,87.38,4
+Manchester United,Premier League,England,163.96,86.47,5
+Tottenham Hotspur,Premier League,England,145.22,75.82,6
+Liverpool,Premier League,England,137.7,71.54,7
+Borussia Dortmund,Bundesliga,Germany,132.75,68.72,8
+Chelsea,Premier League,England,125.48,64.59,9
+Leeds United,Premier League,England,115.84,59.11,10
+Arsenal,Premier League,England,115.59,58.97,11
+Juventus,Serie A,Italy,115.08,58.68,12
+Manchester City,Premier League,England,114.51,58.36,13
+Aston Villa,Premier League,England,110.23,55.92,14
+Inter,Serie A,Italy,107.45,54.34,15
+Crystal Palace,Premier League,England,104.57,52.7,16
+Bayer Leverkusen,Bundesliga,Germany,103.75,52.23,17
+FSV Mainz 05,Bundesliga,Germany,100.65,50.47,18
+RB Leipzig,Bundesliga,Germany,99.8,49.99,19
+FC Köln,Bundesliga,Germany,98.76,49.39,20
+Nottingham Forest,Premier League,England,97.85,48.88,21
+Milan,Serie A,Italy,96.56,48.15,22
+SV Werder Bremen,Bundesliga,Germany,94.08,46.73,23
+VfB Stuttgart,Bundesliga,Germany,92.16,45.64,24
+SC Freiburg,Bundesliga,Germany,91.23,45.12,25
+Augsburg,Bundesliga,Germany,89.59,44.18,26
+Eintracht Frankfurt,Bundesliga,Germany,87.48,42.98,27
+Borussia Mönchengladbach,Bundesliga,Germany,86.22,42.27,28
+Burnley,Premier League,England,85.59,41.91,29
+Atalanta,Serie A,Italy,82.6,40.2,30
+Wolverhampton Wanderers,Premier League,England,81.52,39.59,31
+Hamburger SV,Bundesliga,Germany,78.06,37.62,32
+Brighton & Hove Albion,Premier League,England,77.72,37.43,33
+FC St. Pauli,Bundesliga,Germany,75.67,36.27,34
+FC Union Berlin,Bundesliga,Germany,73.69,35.14,35
+FC Heidenheim 1846,Bundesliga,Germany,72.79,34.63,36
+Napoli,Serie A,Italy,70.77,33.48,37
+Sassuolo,Serie A,Italy,69.9,32.99,38
+West Ham United,Premier League,England,69.08,32.52,39
+Lens,Ligue 1,France,68.94,32.44,40
+Athletic Bilbao,La Liga,Spain,67.25,31.48,41
+Newcastle United,Premier League,England,65.42,30.44,42
+Olympique de Marseille,Ligue 1,France,65.28,30.36,43
+Bournemouth,Premier League,England,64.72,30.04,44
+Cagliari,Serie A,Italy,64.45,29.89,45
+Brest,Ligue 1,France,62.75,28.92,46
+Brentford,Premier League,England,61.42,28.16,47
+Fulham,Premier League,England,60.63,27.72,48
+Atlético Madrid,La Liga,Spain,58.67,26.6,49
+Rennes,Ligue 1,France,55.41,24.74,50
+Roma,Serie A,Italy,54.8,24.4,51
+Celta de Vigo,La Liga,Spain,52.99,23.37,52
+TSG Hoffenheim,Bundesliga,Germany,51.82,22.7,53
+Bologna,Serie A,Italy,51.77,22.68,54
+Auxerre,Ligue 1,France,50.25,21.81,55
+VfL Wolfsburg,Bundesliga,Germany,49.08,21.14,56
+Lille,Ligue 1,France,47.01,19.97,57
+Lorient,Ligue 1,France,46.06,19.43,58
+Lecce,Serie A,Italy,45.41,19.06,59
+Fiorentina,Serie A,Italy,43.54,17.99,60
+Genoa,Serie A,Italy,42.79,17.57,61
+Olympique Lyonnais,Ligue 1,France,41.69,16.94,62
+Real Betis,La Liga,Spain,40.56,16.3,63
+OGC Nice,Ligue 1,France,39.29,15.58,64
+Pisa,Serie A,Italy,36.4,13.93,65
+Racing Club de Strasbourg,Ligue 1,France,35.66,13.51,66
+Lazio,Serie A,Italy,35.51,13.43,67
+Nantes,Ligue 1,France,35.1,13.19,68
+Sunderland,Premier League,England,34.83,13.04,69
+Paris FC,Ligue 1,France,32.74,11.85,70
+Everton,Premier League,England,32.01,11.44,71
+Sevilla,La Liga,Spain,31.39,11.09,72
+Le Havre,Ligue 1,France,31.28,11.02,73
+Hellas Verona,Serie A,Italy,30.71,10.7,74
+Real Sociedad,La Liga,Spain,29.81,10.19,75
+AS Monaco,Ligue 1,France,29.56,10.04,76
+Metz,Ligue 1,France,29.56,10.04,76
+Parma,Serie A,Italy,29.48,10.0,78
+Espanyol,La Liga,Spain,27.86,9.08,79
+Villarreal,La Liga,Spain,27.3,8.76,80
+Valencia,La Liga,Spain,26.86,8.51,81
+Toulouse,Ligue 1,France,26.24,8.15,82
+Como,Serie A,Italy,25.94,7.98,83
+Angers,Ligue 1,France,25.26,7.6,84
+Udinese,Serie A,Italy,24.76,7.32,85
+Girona,La Liga,Spain,23.24,6.45,86
+Alavés,La Liga,Spain,22.18,5.85,87
+Levante,La Liga,Spain,20.39,4.83,88
+Rayo Vallecano,La Liga,Spain,19.4,4.27,89
+Osasuna,La Liga,Spain,18.47,3.74,90
+Getafe,La Liga,Spain,16.82,2.8,91
+Cremonese,Serie A,Italy,15.94,2.3,92
+Torino,Serie A,Italy,14.94,1.73,93
+Elche,La Liga,Spain,14.67,1.58,94
+Real Oviedo,La Liga,Spain,14.04,1.22,95
+Mallorca,La Liga,Spain,11.9,0.0,96
