@@ -1,17 +1,15 @@
 from pathlib import Path
+import base64
+from html import escape
 
 import pandas as pd
 import plotly.express as px
 import streamlit as st
 
 
-# ============================================================
-# SBL CONSULTANCY — CORPORATE BRAND IDENTITY
-# Put the original company logo in: dashboard/assets/logo_sbl.png
-# ============================================================
 ASSETS_DIR = Path(__file__).resolve().parent / "assets"
 LOGO_PATH = ASSETS_DIR / "logo_sbl.png"
-
+SBL_WEBSITE = "https://sblconsultancy.it/"  
 SBL_NAVY = "#1E344B"
 SBL_NAVY_DARK = "#172B40"
 SBL_SLATE = "#345A78"
@@ -21,7 +19,6 @@ SBL_ICE = "#ECF5FA"
 SBL_PAPER = "#F7FAFD"
 SBL_BORDER = "#DDE6EE"
 
-# Charts inherit SBL colors without changing the data or ranks.
 DASHBOARD_COLORS = [
     SBL_NAVY,
     SBL_ORANGE,
@@ -33,8 +30,7 @@ DASHBOARD_COLORS = [
 px.defaults.color_discrete_sequence = DASHBOARD_COLORS
 px.defaults.template = "plotly_white"
 
-# A local image is used both in the dashboard and (when present)
-# as the browser favicon. The page can still run if the logo is missing.
+
 if LOGO_PATH.is_file():
     from PIL import Image
     with Image.open(LOGO_PATH) as logo_image:
@@ -53,93 +49,208 @@ st.markdown(
     <style>
     :root {
         --sbl-navy: #1E344B;
-        --sbl-navy-dark: #172B40;
-        --sbl-slate: #345A78;
+        --sbl-deep: #172B40;
         --sbl-orange: #F7931E;
         --sbl-sky: #32A7DA;
-        --sbl-ice: #ECF5FA;
-        --sbl-paper: #F7FAFD;
-        --sbl-border: #DDE6EE;
+        --sbl-paper: #F4F7FB;
+        --sbl-ink: #21364C;
+        --sbl-muted: #465A70;
+        --sbl-line: #DCE5EF;
     }
 
-    /* Neutral, spacious canvas. */
-    .stApp {
-        background-color: var(--sbl-paper);
-        color: var(--sbl-navy);
+    /* Identita' visiva: canvas chiaro anche nel browser del responsabile. */
+    html, body, [data-testid="stAppViewContainer"],
+    [data-testid="stMain"], .main, .stApp {
+        background: var(--sbl-paper) !important;
+        color: var(--sbl-ink) !important;
     }
-    .block-container {
-        padding-top: 1.7rem;
-        padding-bottom: 2.5rem;
+    header[data-testid="stHeader"] {
+        background: var(--sbl-paper) !important;
+        box-shadow: none !important;
     }
-    h1, h2, h3 {
+    [data-testid="stMainBlockContainer"], .main .block-container {
+        padding-top: 4.2rem !important;
+        padding-bottom: 2.6rem !important;
+        max-width: 1650px;
+    }
+    @media (max-width: 768px) {
+        [data-testid="stMainBlockContainer"], .main .block-container {
+            padding-top: 4rem !important;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
+    }
+    [data-testid="stMain"] h1,
+    [data-testid="stMain"] h2,
+    [data-testid="stMain"] h3,
+    [data-testid="stMain"] h4 {
         color: var(--sbl-navy) !important;
-        letter-spacing: -0.02em;
+        letter-spacing: -0.025em;
     }
-    h1 {font-weight: 760;}
+    [data-testid="stMain"] p,
+    [data-testid="stMain"] label {
+        color: var(--sbl-ink);
+    }
 
-    /* Sidebar matches the dark background surrounding the original logo. */
-    section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #1E344B 0%, #172B40 100%);
-        border-right: 2px solid var(--sbl-orange);
+    /* Hero compatto: logo interamente visibile e cliccabile. */
+    .sbl-hero {
+        display: flex; align-items: center; gap: 1.15rem;
+        background: #fff;
+        border: 1px solid var(--sbl-line);
+        border-radius: 16px;
+        padding: 1.15rem 1.45rem;
+        box-shadow: 0 7px 24px rgba(30, 52, 75, .07);
+        margin: .25rem 0 1.1rem;
+        min-height: 115px;
     }
-    section[data-testid="stSidebar"] h1,
-    section[data-testid="stSidebar"] h2,
-    section[data-testid="stSidebar"] h3,
+    .sbl-logo-link { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; }
+    .sbl-logo-link img {
+        width: 78px; height: 78px; max-width: 100%;
+        object-fit: contain; display: block; border-radius: 12px;
+    }
+    .sbl-logo-link:focus-visible { outline: 3px solid var(--sbl-orange); border-radius: 12px; }
+    .sbl-hero-copy { min-width: 0; }
+    .sbl-eyebrow {
+        color: #426480 !important; font-size: .71rem;
+        letter-spacing: .16em; font-weight: 800;
+        text-transform: uppercase; margin-bottom: .3rem;
+    }
+    .sbl-hero h1 {
+        color: var(--sbl-navy) !important;
+        font-size: clamp(1.45rem, 2.2vw, 2.28rem);
+        font-weight: 780; line-height: 1.2;
+        margin: 0 0 .42rem !important;
+        overflow-wrap: anywhere;
+    }
+    .sbl-hero p {
+        color: var(--sbl-muted) !important;
+        font-size: .92rem; line-height: 1.5; margin: 0 !important;
+    }
+    @media (max-width: 560px) {
+        .sbl-hero { gap: .75rem; padding: .85rem; min-height: auto; }
+        .sbl-logo-link img { width: 55px; height: 55px; }
+        .sbl-hero h1 { font-size: 1.32rem; }
+        .sbl-hero p { font-size: .80rem; }
+    }
+
+    /* Sidebar coordinata: logo cliccabile ma non tagliato. */
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(170deg, var(--sbl-navy), var(--sbl-deep)) !important;
+        border-right: 3px solid var(--sbl-orange);
+    }
+    section[data-testid="stSidebar"] > div { background: transparent !important; }
     section[data-testid="stSidebar"] p,
     section[data-testid="stSidebar"] span,
-    section[data-testid="stSidebar"] label {
-        color: #F4F8FC !important;
-    }
-    section[data-testid="stSidebar"] hr {
-        border-color: rgba(255,255,255,0.26);
-    }
-    section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] p {
-        color: #C9D8E5 !important;
-    }
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] h1,
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3 { color: #F7FAFE !important; }
+    section[data-testid="stSidebar"] hr { border-color: rgba(255, 255, 255, .24); }
+    section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] p,
+    section[data-testid="stSidebar"] small { color: #D7E3EF !important; }
+    .sbl-sidebar-brand { padding: .2rem 0 .4rem; }
+    .sbl-sidebar-brand .sbl-logo-link img { width: 154px; height: 150px; }
+    .sbl-sidebar-brand .sbl-logo-link:hover img { filter: drop-shadow(0 4px 7px rgba(255,255,255,.14)); }
 
-    /* Keep data cards clear on small windows. */
+    /* KPI: il label dei metric era bianco su fondo bianco nel browser del responsabile.
+       Fissiamo esplicitamente anche il colore degli elementi annidati. */
     div[data-testid="stMetric"] {
-        background: #FFFFFF;
-        border: 1px solid var(--sbl-border);
-        border-top: 3px solid var(--sbl-orange);
-        border-radius: 11px;
-        padding: 16px 18px;
-        box-shadow: 0 3px 11px rgba(30,52,75,0.045);
+        box-sizing: border-box;
+        background: #fff !important;
+        border: 1px solid var(--sbl-line) !important;
+        border-top: 3px solid var(--sbl-orange) !important;
+        border-radius: 14px !important;
+        min-height: 137px;
+        padding: 17px 18px !important;
+        box-shadow: 0 5px 16px rgba(30,52,75,.065);
+        overflow: visible !important;
     }
-    div[data-testid="stMetricLabel"] {color: var(--sbl-slate);}
-    div[data-testid="stMetricValue"] {color: var(--sbl-navy);}
+    div[data-testid="stMetricLabel"],
+    div[data-testid="stMetricLabel"] *,
+    div[data-testid="stMetric"] [data-testid="stMetricLabel"] p {
+        color: #42546A !important;
+        -webkit-text-fill-color: #42546A !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        font-size: .88rem !important;
+        font-weight: 700 !important;
+        line-height: 1.35 !important;
+        white-space: normal !important;
+        overflow: visible !important;
+    }
+    div[data-testid="stMetricLabel"] {
+        min-height: 2.25rem;
+        margin-bottom: .48rem;
+    }
+    div[data-testid="stMetricValue"],
+    div[data-testid="stMetricValue"] * {
+        color: var(--sbl-navy) !important;
+        -webkit-text-fill-color: var(--sbl-navy) !important;
+        opacity: 1 !important;
+        font-weight: 750 !important;
+    }
+    div[data-testid="stMetricValue"] { font-size: clamp(1.35rem, 1.7vw, 2rem); }
+    div[data-testid="stMetricDelta"], div[data-testid="stMetricDelta"] * {
+        opacity: 1 !important;
+    }
 
-    /* Brand highlight for active navigation. */
+    /* Tabs leggibili e navigazione attiva nel colore aziendale. */
+    div[data-testid="stTabs"] [role="tablist"] {
+        gap: .25rem;
+        border-bottom: 1px solid var(--sbl-line);
+    }
     div[data-testid="stTabs"] [role="tab"] {
-        color: var(--sbl-slate);
-        font-weight: 600;
+        color: #38526C !important;
+        font-weight: 650 !important;
+        border-radius: 8px 8px 0 0;
+        padding: .65rem .9rem;
+    }
+    div[data-testid="stTabs"] [role="tab"]:hover {
+        background: #E7F1F8 !important;
+        color: var(--sbl-navy) !important;
     }
     div[data-testid="stTabs"] [role="tab"][aria-selected="true"] {
         color: var(--sbl-navy) !important;
+        background: #EAF2F8 !important;
         border-bottom-color: var(--sbl-orange) !important;
+        box-shadow: inset 0 -2px var(--sbl-orange);
     }
-    div[data-testid="stTabs"] [role="tab"]:focus-visible {
-        outline-color: var(--sbl-orange);
-    }
+    div[data-testid="stTabs"] [role="tab"]:focus-visible { outline: 2px solid var(--sbl-orange); }
 
-    /* Brand actions and editable inputs. */
-    div.stButton > button[kind="primary"],
-    div.stDownloadButton > button[kind="primary"] {
-        background-color: var(--sbl-navy);
-        color: white;
-        border-color: var(--sbl-navy);
+    /* Input e menu: niente dropdown nero su pagina chiara. */
+    [data-testid="stMain"] div[data-baseweb="select"] > div,
+    [data-testid="stMain"] div[data-baseweb="input"] > div,
+    [data-testid="stMain"] div[data-baseweb="base-input"],
+    [data-testid="stMain"] div[data-baseweb="select"] input,
+    [data-testid="stMain"] input[type="number"] {
+        background: #fff !important;
+        color: var(--sbl-ink) !important;
+        border-color: var(--sbl-line) !important;
     }
-    div.stButton > button:hover,
-    div.stDownloadButton > button:hover {
-        border-color: var(--sbl-orange);
-        color: var(--sbl-navy);
+    [data-baseweb="popover"], [data-baseweb="popover"] > div,
+    ul[role="listbox"], div[role="listbox"], [data-baseweb="menu"] {
+        background: #fff !important;
+        color: var(--sbl-ink) !important;
+        border-color: var(--sbl-line) !important;
     }
-    div[data-testid="stDataFrame"],
-    div[data-testid="stAlert"] {
-        border-radius: 10px;
+    li[role="option"], li[role="option"] *,
+    [role="option"], [role="option"] * {
+        color: var(--sbl-ink) !important;
     }
-    div[data-testid="stDataFrame"] {
-        border: 1px solid var(--sbl-border);
+    [role="option"]:hover, [role="option"][aria-selected="true"] {
+        background: #E8F3FC !important;
+    }
+    [data-testid="stMain"] button[kind="primary"] {
+        background: var(--sbl-navy) !important;
+        color: #fff !important;
+        border-color: var(--sbl-navy) !important;
+    }
+    [data-testid="stMain"] button:hover { border-color: var(--sbl-orange) !important; }
+    [data-testid="stDataFrame"], [data-testid="stAlert"],
+    [data-testid="stPlotlyChart"] { border-radius: 12px; }
+    [data-testid="stDataFrame"], [data-testid="stPlotlyChart"] {
+        border: 1px solid var(--sbl-line);
+        background: #fff;
     }
     </style>
     """,
@@ -259,12 +370,31 @@ svi = svi.sort_values(
     ascending=True
 )
 
+if LOGO_PATH.is_file():
+    LOGO_DATA_URL = (
+        "data:image/png;base64,"
+        + base64.b64encode(LOGO_PATH.read_bytes()).decode("ascii")
+    )
+    SITE_LINK = escape(SBL_WEBSITE, quote=True)
+    SBL_LOGO_LINK = (
+        f'<a class="sbl-logo-link" href="{SITE_LINK}" '
+        f'target="_blank" rel="noopener noreferrer" '
+        f'aria-label="Open SBL Consultancy website" '
+        f'title="Visit SBL Consultancy website">'
+        f'<img src="{LOGO_DATA_URL}" alt="SBL Consultancy logo" />'
+        f'</a>'
+    )
+else:
+    SBL_LOGO_LINK = (
+        '<span style="font-weight:800;color:#1E344B">SBL Consultancy</span>'
+    )
+
 with st.sidebar:
 
-    if LOGO_PATH.is_file():
-        st.image(str(LOGO_PATH), width=160)
-    else:
-        st.warning("SBL logo not found: dashboard/assets/logo_sbl.png")
+    st.markdown(
+        f'<div class="sbl-sidebar-brand">{SBL_LOGO_LINK}</div>',
+        unsafe_allow_html=True,
+    )
 
     st.markdown("### SVI Predictor")
     st.caption("SBL CONSULTANCY · FOOTBALL ANALYTICS")
@@ -297,19 +427,19 @@ with st.sidebar:
         "realized investment returns."
     )
 
-brand_logo_col, brand_title_col = st.columns([1, 10], gap="medium")
-
-with brand_logo_col:
-    if LOGO_PATH.is_file():
-        st.image(str(LOGO_PATH), width=90)
-
-with brand_title_col:
-    st.caption("SBL CONSULTANCY  /  SPONSORSHIP ANALYTICS")
-    st.title("Sponsorship Value Index Predictor")
-    st.write(
-        "Club valuation, sponsorship ranking "
-        "and estimated Social + TV media return."
-    )
+st.markdown(
+    f"""
+    <div class="sbl-hero">
+        {SBL_LOGO_LINK}
+        <div class="sbl-hero-copy">
+            <div class="sbl-eyebrow">SBL CONSULTANCY / FOOTBALL ANALYTICS</div>
+            <h1>Sponsorship Value Index Predictor</h1>
+            <p>Club valuation, sponsorship ranking and estimated Social + TV media return.</p>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 overview_tab, svi_tab, club_tab, recommendation_tab, roi_tab, quality_tab = st.tabs(
     [
@@ -1775,7 +1905,7 @@ with roi_tab:
             f"{media_cost_coverage_pct:.2f}%",
         )
 
-        # Exposure-share sensitivity; original club data remain unchanged.
+        
         st.divider()
         st.subheader("Brand ROI — Sensitivity Analysis")
         st.write(
