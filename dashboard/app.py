@@ -811,14 +811,14 @@ with club_tab:
     col1.metric(
         "League average",
         f"€{league_mean:.2f}m",
-        delta=f"{difference_vs_mean:+.2f}m vs club",
+        delta=f"{difference_vs_mean:+.2f}m club vs league average",
         delta_color="off",
     )
 
     col2.metric(
         "League median",
         f"€{league_median:.2f}m",
-        delta=f"{difference_vs_median:+.2f}m vs club",
+        delta=f"{difference_vs_median:+.2f}m club vs league median",
         delta_color="off",
     )
 
