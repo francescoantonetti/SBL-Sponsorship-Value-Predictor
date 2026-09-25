@@ -411,20 +411,19 @@ svi = svi.sort_values(
 )
 
 if LOGO_PATH.is_file():
+
     LOGO_DATA_URL = (
         "data:image/png;base64,"
-        + base64.b64encode(LOGO_PATH.read_bytes()).decode("ascii")
-    )
-if HERO_LOGO_PATH.is_file():
-    HERO_LOGO_DATA_URL = (
-        "data:image/png;base64,"
         + base64.b64encode(
-            HERO_LOGO_PATH.read_bytes()
+            LOGO_PATH.read_bytes()
         ).decode("ascii")
     )
-else:
-    HERO_LOGO_DATA_URL = LOGO_DATA_URL
-    SITE_LINK = escape(SBL_WEBSITE, quote=True)
+
+    SITE_LINK = escape(
+        SBL_WEBSITE,
+        quote=True
+    )
+
     SBL_LOGO_LINK = (
         f'<a class="sbl-logo-link" href="{SITE_LINK}" '
         f'target="_blank" rel="noopener noreferrer" '
@@ -433,11 +432,52 @@ else:
         f'<img src="{LOGO_DATA_URL}" alt="SBL Consultancy logo" />'
         f'</a>'
     )
+
 else:
-    SBL_LOGO_LINK = (
-        '<span style="font-weight:800;color:#1E344B">SBL Consultancy</span>'
+
+    LOGO_DATA_URL = ""
+
+    SITE_LINK = escape(
+        SBL_WEBSITE,
+        quote=True
     )
 
+    SBL_LOGO_LINK = (
+        '<span style="font-weight:800;color:#1E344B">'
+        'SBL Consultancy'
+        '</span>'
+    )
+
+
+if HERO_LOGO_PATH.is_file():
+
+    HERO_LOGO_DATA_URL = (
+        "data:image/png;base64,"
+        + base64.b64encode(
+            HERO_LOGO_PATH.read_bytes()
+        ).decode("ascii")
+    )
+
+else:
+
+    HERO_LOGO_DATA_URL = LOGO_DATA_URL
+
+
+if HERO_LOGO_DATA_URL:
+
+    HERO_LOGO_LINK = (
+        f'<a class="sbl-logo-link" href="{SITE_LINK}" '
+        f'target="_blank" rel="noopener noreferrer" '
+        f'aria-label="Open SBL Consultancy website" '
+        f'title="Visit SBL Consultancy website">'
+        f'<img src="{HERO_LOGO_DATA_URL}" '
+        f'alt="SBL Consultancy logo" />'
+        f'</a>'
+    )
+
+else:
+
+    HERO_LOGO_LINK = SBL_LOGO_LINK
 with st.sidebar:
 
     st.markdown(
