@@ -106,9 +106,23 @@ st.markdown(
         min-height: 115px;
     }
     .sbl-logo-link { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; }
-    .sbl-logo-link img {
-        width: 78px; height: 78px; max-width: 100%;
-        object-fit: contain; display: block; border-radius: 12px;
+    .sbl-hero .sbl-logo-link img {
+    width: 78px;
+    height: 78px;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    }
+    .sbl-hero .sbl-logo-link {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
     }
     .sbl-logo-link:focus-visible { outline: 3px solid var(--sbl-orange); border-radius: 12px; }
     .sbl-hero-copy { min-width: 0; }
