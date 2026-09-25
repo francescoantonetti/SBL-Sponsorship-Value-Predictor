@@ -10,6 +10,7 @@ import streamlit.components.v1 as components
 
 ASSETS_DIR = Path(__file__).resolve().parent / "assets"
 LOGO_PATH = ASSETS_DIR / "logo_sbl.png"
+HERO_LOGO_PATH = ASSETS_DIR / "logo_sbl_hero.png"
 MAP_PATH = ASSETS_DIR / "SVI_geographic_map_2025.html"
 SBL_WEBSITE = "https://sblconsultancy.it/"  
 SBL_NAVY = "#1E344B"
@@ -414,6 +415,15 @@ if LOGO_PATH.is_file():
         "data:image/png;base64,"
         + base64.b64encode(LOGO_PATH.read_bytes()).decode("ascii")
     )
+if HERO_LOGO_PATH.is_file():
+    HERO_LOGO_DATA_URL = (
+        "data:image/png;base64,"
+        + base64.b64encode(
+            HERO_LOGO_PATH.read_bytes()
+        ).decode("ascii")
+    )
+else:
+    HERO_LOGO_DATA_URL = LOGO_DATA_URL
     SITE_LINK = escape(SBL_WEBSITE, quote=True)
     SBL_LOGO_LINK = (
         f'<a class="sbl-logo-link" href="{SITE_LINK}" '
@@ -473,10 +483,18 @@ with st.sidebar:
         "realized investment returns.")
     )
 
+HERO_LOGO_LINK = (
+    f'<a class="sbl-logo-link" href="{SITE_LINK}" '
+    f'target="_blank" rel="noopener noreferrer" '
+    f'aria-label="Open SBL Consultancy website" '
+    f'title="Visit SBL Consultancy website">'
+    f'<img src="{HERO_LOGO_DATA_URL}" alt="SBL Consultancy logo" />'
+    f'</a>'
+)
 st.markdown(
     f"""
     <div class="sbl-hero">
-        {SBL_LOGO_LINK}
+        {HERO_LOGO_LINK}
         <div class="sbl-hero-copy">
             <div class="sbl-eyebrow">SBL CONSULTANCY / FOOTBALL ANALYTICS</div>
             <h1>Sponsorship Value Index Predictor</h1>
