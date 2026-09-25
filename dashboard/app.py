@@ -1153,19 +1153,26 @@ with map_tab:
     ))
 
     if MAP_PATH.is_file():
-        map_html = MAP_PATH.read_text(encoding="utf-8")
-        # Presentation mode: keep zoom, pan, hover and legend while hiding editing controls.
-        map_html = map_html.replace("readOnly: false", "readOnly: true")
-        components.html(
-            map_html,
-            height=760,
-            scrolling=False,
-        )
-    else:
-        st.warning(tr(
-            "Geographic map file not available. Add SVI_geographic_map_2025.html to dashboard/assets."
-        ))
 
+    map_html = MAP_PATH.read_text(
+        encoding="utf-8"
+    )
+
+    components.html(
+        map_html,
+        height=760,
+        scrolling=False,
+    )
+
+else:
+
+    st.warning(
+        tr(
+            "Geographic map file not available. "
+            "Add SVI_geographic_map_2025.html "
+            "to dashboard/assets."
+        )
+    )
 
 with recommendation_tab:
 
