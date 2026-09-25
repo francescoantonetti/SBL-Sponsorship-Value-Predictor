@@ -1164,7 +1164,7 @@ with map_tab:
         scrolling=False,
     )
 
-else:
+    else:
 
     st.warning(
         tr(
