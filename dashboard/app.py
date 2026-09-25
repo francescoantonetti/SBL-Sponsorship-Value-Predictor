@@ -1154,25 +1154,25 @@ with map_tab:
 
     if MAP_PATH.is_file():
 
-    map_html = MAP_PATH.read_text(
-        encoding="utf-8"
-    )
+      map_html = MAP_PATH.read_text(
+          encoding="utf-8"
+      )
 
-    components.html(
-        map_html,
-        height=760,
-        scrolling=False,
-    )
+      components.html(
+          map_html,
+          height=760,
+          scrolling=False,
+      )
 
     else:
 
-    st.warning(
-        tr(
-            "Geographic map file not available. "
-            "Add SVI_geographic_map_2025.html "
-            "to dashboard/assets."
-        )
-    )
+      st.warning(
+          tr(
+              "Geographic map file not available. "
+              "Add SVI_geographic_map_2025.html "
+              "to dashboard/assets."
+          )
+      )
 
 with recommendation_tab:
 
