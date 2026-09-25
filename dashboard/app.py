@@ -8,6 +8,7 @@ import streamlit as st
 
 
 ASSETS_DIR = Path(__file__).resolve().parent / "assets"
+MAP_PATH = ASSETS_DIR / "SVI_geographic_map_2025.html"
 LOGO_PATH = ASSETS_DIR / "logo_sbl.png"
 SBL_WEBSITE = "https://sblconsultancy.it/"  
 SBL_NAVY = "#1E344B"
@@ -441,17 +442,25 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-overview_tab, svi_tab, club_tab, recommendation_tab, roi_tab, quality_tab = st.tabs(
+(
+    overview_tab,
+    svi_tab,
+    club_tab,
+    recommendation_tab,
+    roi_tab,
+    map_tab,
+    quality_tab,
+) = st.tabs(
     [
         "Overview",
         "SVI & Club Ranking",
         "Club Explorer",
         "Sponsor–Club Recommendation",
         "Social + TV ROI",
+        "Geographic SVI Map",
         "Model & Data Quality",
     ]
 )
-
 with overview_tab:
 
     st.header("Project Overview")
@@ -2737,6 +2746,41 @@ with roi_tab:
             "reference period of the model's sponsorship "
             "estimates must be distinguished when "
             "interpreting the results."
+        )
+with map_tab:
+
+    st.header(
+        "Geographic Distribution of the Sponsorship Value Index"
+    )
+
+    st.write(
+        "Explore the geographical distribution of the 96 clubs "
+        "included in the SVI scoring universe."
+    )
+
+    st.info(
+        "Point color identifies the domestic league, while point "
+        "size represents the club's SVI quartile."
+    )
+
+    if MAP_PATH.exists():
+
+        import streamlit.components.v1 as components
+
+        map_html = MAP_PATH.read_text(
+            encoding="utf-8"
+        )
+
+        components.html(
+            map_html,
+            height=720,
+            scrolling=False,
+        )
+
+    else:
+
+        st.warning(
+            "Geographic map file not available."
         )
 with quality_tab:
 
