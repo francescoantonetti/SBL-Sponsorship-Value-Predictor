@@ -1148,31 +1148,22 @@ with map_tab:
     map_c2.metric(tr("Domestic leagues"), svi["league"].nunique())
     map_c3.metric(tr("SVI quartiles"), 4)
 
-    st.caption(tr(
-        "Map encoding: color = league; point size = SVI quartile. Hover a point to view club, league and SVI."
-    ))
-
-    if MAP_PATH.is_file():
-
-      map_html = MAP_PATH.read_text(
-          encoding="utf-8"
-      )
-
-      components.html(
-          map_html,
-          height=760,
-          scrolling=False,
-      )
-
-    else:
-
-      st.warning(
-          tr(
-              "Geographic map file not available. "
-              "Add SVI_geographic_map_2025.html "
-              "to dashboard/assets."
-          )
-      )
+    st.caption(
+        tr(
+            "Map encoding: color = league; point size = SVI quartile. "
+            "Hover a point to view club, league and SVI."
+        )
+    )
+    MAP_URL = (
+    "https://francescoantonetti.github.io/"
+    "SBL-Sponsorship-Value-Predictor/"
+    "SVI_geographic_map_2025.html"
+    )
+    components.iframe(
+       MAP_URL,
+       height=760,
+       scrolling=False,
+    )
 
 with recommendation_tab:
 
